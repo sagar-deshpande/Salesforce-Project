@@ -1,0 +1,33 @@
+<template>
+    <lightning-card variant="Narrow" title="Event Information" icon-name="standard:event">
+        <div class="slds-var-m-around_small">
+            <div class="slds-var-m-around_small">
+                <template if:true={errors}>
+                    {errors}
+                </template>
+            </div>
+            
+            <lightning-input type="text" variant="standard" name="Name__c" label="Event Name" value={eventRecord.Name__c} onchange={handleChange}></lightning-input>
+            <c-custom-lookup object-name="Event_Organizer__c"
+                field-name="Name" 
+                iconname="standard:people" 
+                label="Organizer"
+                parent-field-id="Event_Organizer__c"
+                onselect={handleSelect}></c-custom-lookup>
+            <lightning-input type="datetime" variant="standard" name="Start_DateTime__c" label="Start Date" value={eventRecord.Start_DateTime__c} onchange={handleChange}></lightning-input>
+            <lightning-input type="datetime" variant="standard" name="End_Date_Time__c" label="End Date" value={eventRecord.End_Date_Time__c} onchange={handleChange}></lightning-input>
+            <lightning-input type="number" variant="standard" name="Max_Seats__c" label="Max Attendee" value={eventRecord.Max_Seats__c} onchange={handleChange}></lightning-input>
+            <c-custom-lookup object-name="Location__c" 
+                field-name="Name" 
+                iconname="utility:checkin" 
+                label="Location"
+                parent-field-id="Location__c"
+                onselect={handleSelect}></c-custom-lookup>
+            <lightning-input-rich-text type="text" variant="standard" name="Event_Detail__c" label="Event Details" value={eventRecord.Event_Detail__c} onchange={handleChange}></lightning-input-rich-text>
+            <lightning-button variant="brand" label="Create Event" onclick={createEvent}></lightning-button>
+            &nbsp; &nbsp;
+            <lightning-button variant="brand" label="Cancel" onclick={handleCancel}></lightning-button> 
+        </div>
+        
+    </lightning-card>
+</template>

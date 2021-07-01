@@ -1,0 +1,27 @@
+<template>
+    <div class="slds-var-m-around_medium">
+        <template if:false={selectedRecord}>
+            <c-serach-component isrequired="true" search-label={label} onsearch={handleSearch}></c-serach-component>
+        </template>
+    </div>
+    <div class="slds-var-m-around_medium">
+        <template if:false={selectedRecord}>
+            <template if:true={records}>
+                <template for:each={records} for:item="rec" for:index="index">
+                    <ul key={rec.Id} class="slds-listbox slds-scrollable_y" style="height: 300px;">
+                        <c-record-list key={rec.Id} rec={rec} iconname={iconname} onselect={handleSelect}></c-record-list>
+                    </ul>
+                </template>
+            </template>
+        </template>
+        <template if:true = {selectedRecord}>
+            <label class="slds-pill-container">
+                <lightning-pill class="pillSize" href="JavaScript:void(0);" label={selectedRecord.Name}
+                    name={selectedRecord.Name} onremove={handleRemove}>
+                    <lightning-icon icon-name={iconname} variant="circle" alternative-text={objectName}>
+                    </lightning-icon>
+                </lightning-pill>
+            </label>
+        </template>
+    </div>
+</template>

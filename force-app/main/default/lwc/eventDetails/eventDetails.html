@@ -1,0 +1,45 @@
+<template>
+    <lightning-card  variant="Narrow" title="Event Details" icon-name="standard:event">
+        <lightning-tabset variant="scoped" active-tab-value="event">
+            <lightning-tab label="Event Details" value="event">
+                <div class="slds-var-m-around_small">
+                    <lightning-record-form
+                        record-id={recordId}
+                        mode="readonly"
+                        layout-type="Full"
+                        columns="2"
+                        object-api-name="Event__c"
+                    >
+                    </lightning-record-form>
+                </div>
+            </lightning-tab>
+            <lightning-tab label="Event Speakers" value="speaker" onactive={handleSpeakerActive}>
+                <template if:true={spealerList}>
+                    <lightning-datatable key-field="id" data={spealerList} show-row-number-column columns={columnList} hide-checkbox-column>
+
+                    </lightning-datatable>
+                    
+                    <template for:each={spealerList} for:item="speaker">
+                        <c-speaker-tile key={speaker.id} speaker={speaker}></c-speaker-tile>
+                    </template>
+                    
+                    I got some data.
+                </template>
+                <template if:false={errors}>
+                    <template if:false={spealerList}>
+                        There are no speaker for this event.
+                    </template>
+                </template>
+                <template if:true={errors}>
+                    {errMsg}
+                </template>
+            </lightning-tab>
+            <lightning-tab label="Event Location" value="location">
+
+            </lightning-tab>
+            <lightning-tab label="Event Attendees" value="attendee">
+
+            </lightning-tab>
+        </lightning-tabset>
+    </lightning-card>
+</template>
